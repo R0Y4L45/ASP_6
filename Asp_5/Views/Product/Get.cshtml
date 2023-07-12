@@ -1,0 +1,49 @@
+﻿@using Asp_5.Entities;
+@model ProductViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Market</title>
+    <style>
+        .container {
+            margin: 24px 0 12px 0;
+        }
+
+        a {
+            margin-left: 36px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <form asp-action="Search" asp-controller="Product">
+            <input asp-for="@Model.Search" placeholder="search" />
+            <button>Search</button>
+        </form>
+    </div>
+    @foreach (Product item in @Model.Products!)
+    {
+        <div class="container">
+            <div>
+                <label asp-for="Product!.Name"></label>
+                <p style="display:inline-block;" class="lead"> => @item.Name</p>
+            </div>
+            <div>
+                <label asp-for="Product!.Price"></label>
+                <p style="display:inline-block;" class="lead"> => @item.Price manat</p>
+            </div>
+            <div>
+                <label asp-for="Product!.Count"></label>
+                <p style="display:inline-block;" class="lead"> => @item.Count</p>
+            </div>
+            <div>
+                <label asp-for="Product!.Description"></label>
+                <p style="display:inline-block;" class="lead"> => @item.Description</p>
+            </div>
+        </div>
+
+        <a asp-controller="product" asp-action="delete" asp-route-id="@item.Id" class="link-danger">Delete</a>
+    }
+</body>
+</html>
