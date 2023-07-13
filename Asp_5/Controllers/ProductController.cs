@@ -45,20 +45,15 @@ public class ProductController : Controller
             _pvm.Products.Add(mapper?.Map<Product, ProductViewModel>(product) ?? new ProductViewModel());
     }
 
-
-    public IActionResult Get()
-    {
-        return View(_pvm);
-    }
+    public IActionResult Get() => 
+        View(_pvm);
     public IActionResult Delete(string name)
     {
         products.Remove(products.First(x => x.Name == name));
         return RedirectToAction("Get");
     }
-    public IActionResult Add()
-    {
-        return View(new ProductViewModel());
-    }
+    public IActionResult Add() => 
+        View(new ProductViewModel());
 
     [HttpPost]
     public IActionResult Add(ProductViewModel pvm)
@@ -68,7 +63,7 @@ public class ProductController : Controller
             MapperConfiguration config = new MapperConfiguration(cfg => cfg.CreateMap<ProductViewModel, Product>());
             Mapper mapper = new Mapper(config);
 
-            products.Add(mapper?.Map<Product>(pvm) ?? new Product() { Name = "null", Description = "null"});
+            products.Add(mapper?.Map<Product>(pvm) ?? new Product() { Name = "null", Description = "null" });
 
             return RedirectToAction("Get");
         }
