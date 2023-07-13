@@ -20,7 +20,6 @@
             display: block;
             padding: 20px 0 53px 0;
             transform: translate(15px, -50px);
-            ;
         }
 
         div {
@@ -40,20 +39,20 @@
 <body>
     <form asp-controller="Product" asp-action="Add">
         <div>
-            <label asp-for="Product!.Name" class="label-info">  </label>
-            <label asp-for="Product!.Price" class="label-info">   </label>
-            <label asp-for="Product!.Count" class="label-info">  </label>
-            <label asp-for="Product!.Description" class="label-info">  </label>
+            <label asp-for="Name" class="label-info">  </label>
+            <label asp-for="Price" class="label-info">   </label>
+            <label asp-for="Count" class="label-info">  </label>
+            <label asp-for="Description" class="label-info">  </label>
         </div>
         <div id="div2">
-            <input asp-for="Product!.Name" />
-            <span asp-validation-for="Product!.Name"></span>
-            <input asp-for="Product!.Price" type="text" inputmode="decimal" />
-            <span asp-validation-for="Product!.Price"></span>
-            <input asp-for="Product!.Count" />
-            <span asp-validation-for="Product!.Count"></span>
-            <input asp-for="Product!.Description" />
-            <span asp-validation-for="Product!.Description"></span>
+            <input asp-for="Name" />
+            <span asp-validation-for="Name"></span>
+            <input asp-for="Price" type="text" inputmode="decimal" />
+            <span asp-validation-for="Price"></span>
+            <input asp-for="Count" />
+            <span asp-validation-for="Count"></span>
+            <input asp-for="Description" />
+            <span asp-validation-for="Description"></span>
         </div>
         <input id="submit" type="submit" />
     </form>

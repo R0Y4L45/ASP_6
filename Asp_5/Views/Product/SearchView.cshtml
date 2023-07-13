@@ -1,4 +1,4 @@
-﻿@model ProductViewModel
+﻿@model PViewModel
 
 <!DOCTYPE html>
 <html>
@@ -18,19 +18,19 @@
     {
         <div class="container">
             <div>
-                <label asp-for="Product!.Name"></label>
+                <label>Name </label>
                 <p style="display:inline-block;" class="lead"> => @item.Name</p>
             </div>
             <div>
-                <label asp-for="Product!.Price"></label>
+                <label>Price </label>
                 <p style="display:inline-block;" class="lead"> => @item.Price manat</p>
             </div>
             <div>
-                <label asp-for="Product!.Count"></label>
+                <label>Count </label>
                 <p style="display:inline-block;" class="lead"> => @item.Count</p>
             </div>
             <div>
-                <label asp-for="Product!.Description"></label>
+                <label>Description </label>
                 <p style="display:inline-block;" class="lead"> => @item.Description</p>
             </div>
         </div>

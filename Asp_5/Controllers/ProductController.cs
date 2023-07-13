@@ -1,13 +1,13 @@
 ﻿using Asp_5.Entities;
 using Asp_5.Models;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Asp_5.Controllers;
 
 public class ProductController : Controller
 {
-    private ProductViewModel? pvm;
-
+    private PViewModel? _pvm = new PViewModel();
     private static List<Product> products = new List<Product>()
     {
         new Product()
@@ -33,28 +33,31 @@ public class ProductController : Controller
         },
     };
 
+    #region Action Methods
     public ProductController()
     {
-        pvm = new ProductViewModel()
-        {
-            Products = products
-        };
+        MapperConfiguration config = new MapperConfiguration(cfg => cfg.CreateMap<Product, ProductViewModel>());
+        Mapper mapper = new Mapper(config);
+
+        _pvm.Products = new List<ProductViewModel>();
+
+        foreach (Product product in products)
+            _pvm.Products.Add(mapper?.Map<Product, ProductViewModel>(product) ?? new ProductViewModel());
     }
 
-    #region Action Methods
 
     public IActionResult Get()
     {
-        return View(pvm);
+        return View(_pvm);
     }
-    public IActionResult Delete(int id)
+    public IActionResult Delete(string name)
     {
-        products.Remove(products.First(x => x.Id == id));
+        products.Remove(products.First(x => x.Name == name));
         return RedirectToAction("Get");
     }
     public IActionResult Add()
     {
-        return View(pvm);
+        return View(new ProductViewModel());
     }
 
     [HttpPost]
@@ -62,22 +65,26 @@ public class ProductController : Controller
     {
         if (ModelState.IsValid)
         {
-            products.Add(pvm.Product!);
+            MapperConfiguration config = new MapperConfiguration(cfg => cfg.CreateMap<ProductViewModel, Product>());
+            Mapper mapper = new Mapper(config);
+
+            products.Add(mapper?.Map<Product>(pvm) ?? new Product() { Name = "null", Description = "null"});
+
             return RedirectToAction("Get");
         }
         return View();
     }
 
-    public IActionResult SearchView(ProductViewModel pvm)
+    public IActionResult SearchView(PViewModel pvm)
     {
-        pvm.Products = products.Where(x => x.Name!.ToLower() == pvm.Search.ToLower()).ToList();
+        pvm.Products = _pvm?.Products?.Where(x => x.Name!.ToLower() == pvm?.SearchResult?.ToLower()).ToList();
         return View(pvm);
     }
 
     [HttpPost]
-    public IActionResult Search(ProductViewModel pvm)
+    public IActionResult Search(PViewModel pvm)
     {
-        if (pvm.Search != null && pvm.Search != string.Empty)
+        if (pvm.SearchResult != null && pvm.SearchResult != string.Empty)
             return RedirectToAction("SearchView", pvm);
         return RedirectToAction("get");
     }

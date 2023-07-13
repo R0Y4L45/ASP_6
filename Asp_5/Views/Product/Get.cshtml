@@ -1,5 +1,5 @@
 ﻿@using Asp_5.Entities;
-@model ProductViewModel
+@model PViewModel
 
 <!DOCTYPE html>
 <html>
@@ -18,32 +18,32 @@
 <body>
     <div>
         <form asp-action="Search" asp-controller="Product">
-            <input asp-for="@Model.Search" placeholder="search" />
+            <input asp-for="@Model.SearchResult" placeholder="search" />
             <button>Search</button>
         </form>
     </div>
-    @foreach (Product item in @Model.Products!)
+    @foreach (var item in @Model.Products!)
     {
         <div class="container">
             <div>
-                <label asp-for="Product!.Name"></label>
-                <p style="display:inline-block;" class="lead"> => @item.Name</p>
+                <label>Name => </label>
+                <p style="display:inline-block;" class="lead">@item.Name</p>
             </div>
             <div>
-                <label asp-for="Product!.Price"></label>
-                <p style="display:inline-block;" class="lead"> => @item.Price manat</p>
+                <label>Price => </label>
+                <p style="display:inline-block;" class="lead">@item.Price manat</p>
             </div>
             <div>
-                <label asp-for="Product!.Count"></label>
-                <p style="display:inline-block;" class="lead"> => @item.Count</p>
+                <label>Count => </label>
+                <p style="display:inline-block;" class="lead">@item.Count</p>
             </div>
             <div>
-                <label asp-for="Product!.Description"></label>
-                <p style="display:inline-block;" class="lead"> => @item.Description</p>
+                <label>Description => </label>
+                <p style="display:inline-block;" class="lead">@item.Description</p>
             </div>
         </div>
 
-        <a asp-controller="product" asp-action="delete" asp-route-id="@item.Id" class="link-danger">Delete</a>
+        <a asp-controller="product" asp-action="delete" asp-route-name="@item.Name" class="link-danger">Delete</a>
     }
 </body>
 </html>
